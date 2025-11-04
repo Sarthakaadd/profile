@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #2d3748;
+        }
+        .wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .header-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .subtitle {
+            color: #718096;
+            font-size: 1.1em;
+        }
+        .content-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            line-height: 1.8;
+        }
+        .section {
+            margin-bottom: 35px;
+        }
+        .section-title {
+            font-size: 1.4em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        .section-content {
+            color: #4a5568;
+            text-align: justify;
+        }
+        .list-item {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .list-item:before {
+            content: "●";
+            color: #667eea;
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+        .contact-box {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #667eea;
+        }
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header-card">
+            <h1><span id="app-name-title">{替换名字}</span> Privacy Policy</h1>
+            <p class="subtitle">We value your privacy and data protection</p>
+        </div>
+
+        <div class="content-card" id="main-content">
+            <div class="contact-box">
+                <strong>Contact Information</strong><br>
+                Email: <span id="contact-email">{替换邮箱}</span>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Our Commitment to Privacy</div>
+                <div class="section-content">
+                    We are committed to safeguarding the privacy of every user who engages with our service. This Privacy Policy outlines how we collect, use, and protect your personal information. We handle your data with the utmost care and will not share it with third parties without your explicit consent, except as described in this document. By using our application, you acknowledge and accept the terms outlined herein. Please note that we may periodically update this policy to reflect changes in our practices.
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Information We Collect</div>
+                <div class="section-content">
+                    When you use our application, we may collect the following types of information:
+                </div>
+                <div class="list-item">Personal registration details you provide when creating an account with our application</div>
+                <div class="list-item">Technical information automatically collected when you access our service, including IP address, browser type, language preferences, access timestamps, and device specifications</div>
+                <div class="list-item">User data obtained legally through our authorized business partners</div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Information Not Covered</div>
+                <div class="section-content">
+                    The following information is not subject to this privacy policy:
+                </div>
+                <div class="list-item">Search terms and keywords you enter while using our platform's search functionality</div>
+                <div class="list-item">Information and data you voluntarily publish on our platform, including activity participation, transaction records, and reviews</div>
+                <div class="list-item">Information related to violations of applicable laws or our platform rules, and any actions we take in response to such violations</div>
+            </div>
+        </div>
+
+        <div class="error" id="error-box">
+            Failed to load application information. Please verify the URL parameters are correct.
+        </div>
+    </div>
+
+    <script>
+        function parseUrlAndUpdateContent() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const encodedAppName = urlParams.get('id');
+                const encodedEmail = urlParams.get('uid');
+                
+                if (!encodedAppName || !encodedEmail) {
+                    throw new Error('Missing required parameters');
+                }
+                
+                const appName = decodeURIComponent(encodedAppName);
+                const email = decodeURIComponent(encodedEmail);
+                
+                if (!appName || !email) {
+                    throw new Error('Decode failed');
+                }
+                
+                document.getElementById('app-name-title').textContent = appName;
+                document.getElementById('contact-email').textContent = email;
+                document.title = appName + ' - Privacy Policy';
+                
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('error-box').style.display = 'block';
+                document.getElementById('main-content').style.display = 'none';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', parseUrlAndUpdateContent);
+    </script>
+</body>
+</html>
